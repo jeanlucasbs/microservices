@@ -25,7 +25,7 @@ public class Cambio implements Serializable {
 		this.conversionFactor = conversionFactor;
 		this.convertedValue = convertedValue;
 		this.environment = environment;
-	}
+	} 
 
 	public Long getId() {
 		return id;
