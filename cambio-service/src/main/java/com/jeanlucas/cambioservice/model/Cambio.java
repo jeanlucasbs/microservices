@@ -11,9 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Transient;
 
-@Entity
+@Entity(name = "cambio")
 public class Cambio implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -39,7 +38,6 @@ public class Cambio implements Serializable {
 
 	public Cambio(Long id, String from, String to, BigDecimal conversionFactor, BigDecimal convertedValue,
 			String environment) {
-		super();
 		this.id = id;
 		this.from = from;
 		this.to = to;

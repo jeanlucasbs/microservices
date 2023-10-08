@@ -2,7 +2,8 @@ package com.jeanlucas.bookservice.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +14,12 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
 
-@Entity
+@Entity(name = "book")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -42,7 +45,9 @@ public class Book implements Serializable{
 	
 	public Book() {}
 
-	public Book(Long id, String author, Date launchDate, Double price, String title, String currency,
+	public Book(Long id, String author, String title,
+			Date launchDate, Double price,
+			String currency,
 			String environment) {
 		this.id = id;
 		this.author = author;
@@ -93,11 +98,6 @@ public class Book implements Serializable{
 		this.title = title;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-	
 	public String getCurrency() {
 		return currency;
 	}
@@ -115,6 +115,20 @@ public class Book implements Serializable{
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
+		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
+		result = prime * result + ((environment == null) ? 0 : environment.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((launchDate == null) ? 0 : launchDate.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -123,6 +137,41 @@ public class Book implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Book other = (Book) obj;
-		return Objects.equals(id, other.id);
+		if (author == null) {
+			if (other.author != null)
+				return false;
+		} else if (!author.equals(other.author))
+			return false;
+		if (currency == null) {
+			if (other.currency != null)
+				return false;
+		} else if (!currency.equals(other.currency))
+			return false;
+		if (environment == null) {
+			if (other.environment != null)
+				return false;
+		} else if (!environment.equals(other.environment))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (launchDate == null) {
+			if (other.launchDate != null)
+				return false;
+		} else if (!launchDate.equals(other.launchDate))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
 	}
 }

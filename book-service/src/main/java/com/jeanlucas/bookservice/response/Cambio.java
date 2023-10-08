@@ -18,7 +18,6 @@ public class Cambio implements Serializable {
 
 	public Cambio(Long id, String from, String to, Double conversionFactor, Double convertedValue,
 			String environment) {
-		super();
 		this.id = id;
 		this.from = from;
 		this.to = to;
